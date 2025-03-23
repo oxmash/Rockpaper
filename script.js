@@ -1,7 +1,15 @@
-console.log("Hello World");
-
 let humanscore = 0;
-let computerscore =0;   
+let computerscore = 0;
+
+const score_h = document.querySelector(".HumanScore");
+const score_c = document.querySelector(".ComputerScore");
+
+score_h.textContent = `Human Score: ${humanscore}`;
+score_c.textContent = `Computer Score: ${computerscore}`;
+
+const rock = document.querySelector(".rock");
+const paper = document.querySelector(".paper");
+const scissors = document.querySelector(".scissors");
 
 function getComputerChoice() {
     let mynumber = Math.random();
@@ -15,79 +23,61 @@ function getComputerChoice() {
     }
 }
 
-function getHumanChoice() {
-    let sign = prompt("What's your sign?");
-    
-    if (sign=="rock"|| sign=="scissors"|| sign=="paper")
-    {return sign.toLowerCase();}
-    
-    else
-    {return "error"}
-    }
-
-
-
-function playround(HumanChoice,ComputerChoice)
-{
-
-    if (HumanChoice==ComputerChoice)
-    {return "Draw";}
-    else if(HumanChoice=="rock")
-    {
-      if(ComputerChoice=="paper")
-      {
-        computerscore++;
-        return "loss";}
-      else 
-      { humanscore++;
-        return "win";}
-
-    }
-    else if(HumanChoice=="scissors")
-        {
-          if(ComputerChoice=="rock")
-          {computerscore++;
-            return "loss";}
-          else 
-          { humanscore++;
-            return "win";}
-    
-        }
-        else if(HumanChoice=="paper")
-            {
-              if(ComputerChoice=="scissors")
-              {computerscore++;
-                return "loss";}
-              else 
-              { humanscore++;
-                return "win";}
-        
-            }
-}
-
-
-for (let i = 0  ; i < 3; i++)
-{   let humanChoice = getHumanChoice();
+// Add event listeners to buttons
+rock.addEventListener("click", () => {
+    let humanChoice = "rock";
     let computerChoice = getComputerChoice();
-    let result = playround(humanChoice,computerChoice);
-    console.log(`Round ${i+1}: You chose ${humanChoice}, Computer chose ${computerChoice}. Result: ${result}`);
+    playRound(humanChoice, computerChoice);
+});
 
+paper.addEventListener("click", () => {
+    let humanChoice = "paper";
+    let computerChoice = getComputerChoice();
+    playRound(humanChoice, computerChoice);
+});
+
+scissors.addEventListener("click", () => {
+    let humanChoice = "scissors";
+    let computerChoice = getComputerChoice();
+    playRound(humanChoice, computerChoice);
+});
+
+// Define the play round function
+function playRound(humanChoice, computerChoice) {
+    let result;
+
+    if (humanChoice === computerChoice) {
+        result = "Draw";
+    } else if (humanChoice === "rock") {
+        if (computerChoice === "paper") {
+            computerscore++;
+            result = "You lose";
+        } else {
+            humanscore++;
+            result = "You win";
+        }
+    } else if (humanChoice === "scissors") {
+        if (computerChoice === "rock") {
+            computerscore++;
+            result = "You lose";
+        } else {
+            humanscore++;
+            result = "You win";
+        }
+    } else if (humanChoice === "paper") {
+        if (computerChoice === "scissors") {
+            computerscore++;
+            result = "You lose";
+        } else {
+            humanscore++;
+            result = "You win";
+        }
+    }
+
+    // Update the scores after each round
+    score_h.textContent = `Human Score: ${humanscore}`;
+    score_c.textContent = `Computer Score: ${computerscore}`;
+
+    // Display the result of the round
+    alert(`You chose ${humanChoice}. Computer chose ${computerChoice}. Result: ${result}`);
 }
-
-
-    if (humanscore>computerscore)
-
-            {
-                console.log("you win");
-
-            }
-    else if (humanscore<computerscore)
-            {
-                console.log("you lose");
-            }
-    else
-    {
-        console.log("draw");
-
-    }        
-     
